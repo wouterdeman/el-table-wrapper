@@ -693,12 +693,12 @@
       }
     }
     th.el-table-column--selection .cell {
-      padding: 12px 10px;
+      padding: 6px 10px;
       line-height: 23px;
       border-bottom: 1px solid $bordor-bottom-line-color;
     }
     th.ll-index .cell {
-      padding: 12px 10px;
+      padding: 6px 10px;
       line-height: 23px;
       border-bottom: 1px solid $bordor-bottom-line-color;
     }
@@ -708,7 +708,7 @@
 
     .table-header-title {
       box-sizing: border-box;
-      padding: 12px 10px;
+      padding: 6px 10px;
       line-height: 23px;
       border-bottom: 1px solid $bordor-bottom-line-color;
 
@@ -737,7 +737,7 @@
         overflow: initial;
 
         .sort-icon-wrapper {
-          color: #878d99;
+          color: #a6adbb;
           width: 14px;
           overflow: hidden;
           font-size: 13px;
@@ -767,7 +767,7 @@
 
     .table-header-content {
       box-sizing: border-box;
-      padding: 10px 10px;
+      padding: 6px 6px;
       line-height: 23px;
       cursor: default;
 
