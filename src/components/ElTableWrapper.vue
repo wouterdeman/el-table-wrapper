@@ -466,13 +466,48 @@
 
         return ''
       },
-      getRenderHeaderFn(columnAttr) {
+      getRenderHeaderFn(columnAttr, hideCustomPart) {
         const that = this
         /* eslint-disable */
         const headerAlign = columnAttr.headerAlign || columnAttr.align || ''
         /* eslint-enable */
         // TODO: sort classname should be here with table-header-title
         return function(h, { column, $index }) {
+          if (hideCustomPart) {
+            return (
+              <div class="table-header">
+                <div class={['table-header-title', headerAlign]}
+                  on-click={e => that.onHeaderTitleClick(e, {
+                    columnAttr: columnAttr
+                  })}>
+                  <span>{columnAttr.label}</span>
+                  {
+                    columnAttr.sortable &&
+                  <span class="sort-caret-wrapper">
+                      <span class="sort-icon-wrapper">
+                        <i class="sort-icon el-icon-caret-top"
+                          on-click={$event => that.onSortClick($event, {
+                            column: column,
+                            columnAttr: columnAttr,
+                            order: 'ascending'
+                          })}>
+                        </i>
+                        </span>
+                      <span class="sort-icon-wrapper">
+                        <i class="sort-icon el-icon-caret-bottom"
+                          on-click={$event => that.onSortClick($event, {
+                            column: column,
+                            columnAttr: columnAttr,
+                            order: 'descending'
+                          })}>
+                        </i>
+                      </span>
+                    </span>
+                  }
+                </div>
+              </div>
+            )
+          }
           return (
             <div class="table-header">
               <div class={['table-header-title', headerAlign]}
@@ -482,18 +517,18 @@
                 <span>{columnAttr.label}</span>
                 {
                   columnAttr.sortable &&
-                  <span class="sort-caret-wrapper">
+                 <span class="sort-caret-wrapper">
                     <span class="sort-icon-wrapper">
-                      <i class="sort-icon el-icon-sort-up"
+                      <i class="sort-icon el-icon-caret-top"
                         on-click={$event => that.onSortClick($event, {
                           column: column,
                           columnAttr: columnAttr,
                           order: 'ascending'
                         })}>
                       </i>
-                    </span>
+                      </span>
                     <span class="sort-icon-wrapper">
-                      <i class="sort-icon el-icon-sort-down"
+                      <i class="sort-icon el-icon-caret-bottom"
                         on-click={$event => that.onSortClick($event, {
                           column: column,
                           columnAttr: columnAttr,
@@ -519,7 +554,9 @@
         }
 
         if (tableProps.showCustomHeader) {
-          propsNoCustom.renderHeader = this.getRenderHeaderFn(columnProps)
+          propsNoCustom.renderHeader = this.getRenderHeaderFn(columnProps, false)
+        } else {
+          propsNoCustom.renderHeader = this.getRenderHeaderFn(columnProps, true)
         }
 
         if (columnProps.searchable && columnProps.searchable === true) {
@@ -593,7 +630,7 @@
 
       return (
         <div class="ll-table-container">
-          <el-table class={{ 'll-table': true, 'custom-header': this.showCustomHeader }}
+          <el-table class={{ 'll-table': true, 'custom-header': true, 'hideCustomHeader': !this.showCustomHeader }}
             ref="ll-table" {...{
               props: props,
               on: {
@@ -668,6 +705,7 @@
     .table-header {
       width: 100%;
     }
+
     .table-header-title {
       box-sizing: border-box;
       padding: 12px 10px;
@@ -706,14 +744,26 @@
           line-height: 23px;
         }
       }
+
+      .sort-icon-wrapper .el-icon-caret-top {
+        position: absolute;
+        top: -2px;
+        left: 3px;
+      }
+
+      .sort-icon-wrapper .el-icon-caret-bottom {
+        position: absolute;
+        left: 3px;
+        top: 4px;
+      }
     }
 
-    .ascending .sort-icon-wrapper .el-icon-sort-up {
-      color: #409eff;
-    }
-    .descending .sort-icon-wrapper .el-icon-sort-down {
-      color: #409eff;
-    }
+      .ascending .sort-caret-wrapper .sort-icon-wrapper .el-icon-caret-top {
+        color: goldenrod !important;
+      }
+      .descending .sort-caret-wrapper .sort-icon-wrapper .el-icon-caret-bottom {
+        color: goldenrod !important;
+      }  
 
     .table-header-content {
       box-sizing: border-box;
@@ -767,5 +817,9 @@
         height: 26px;
       }
     }
+  }
+
+  .hideCustomHeader .table-header-title, .hideCustomHeader .cell {
+    border-bottom: none !important;
   }
 </style>
