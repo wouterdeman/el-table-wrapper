@@ -418,7 +418,7 @@ var defaultFilterMultiple = true;
             elementValueStr = renderedSlot[0].text;
           }
         }
-        return elementValueStr.indexOf(valueStr) > -1;
+        return elementValueStr && elementValueStr.indexOf(valueStr) > -1;
       };
     },
     getMaxCurrent: function getMaxCurrent(total) {
@@ -904,7 +904,7 @@ var content = __webpack_require__(4);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("bf3a4dfe", content, true);
+var update = __webpack_require__(6)("0d66672f", content, true);
 
 /***/ }),
 /* 4 */

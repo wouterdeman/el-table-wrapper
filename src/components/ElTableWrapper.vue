@@ -319,7 +319,7 @@
               elementValueStr = renderedSlot[0].text
             }
           }
-          return elementValueStr.indexOf(valueStr) > -1
+          return elementValueStr && elementValueStr.indexOf(valueStr) > -1
         }
       },
       getMaxCurrent(total) {
