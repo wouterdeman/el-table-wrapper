@@ -418,7 +418,10 @@ var defaultFilterMultiple = true;
             elementValueStr = renderedSlot[0].text;
           }
         }
-        return !!(elementValueStr && elementValueStr.indexOf(valueStr) > -1);
+        if (!elementValueStr) {
+          elementValueStr = '';
+        }
+        return elementValueStr.indexOf(valueStr) > -1;
       };
     },
     getMaxCurrent: function getMaxCurrent(total) {
@@ -907,7 +910,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(6)
 module.exports.__inject__ = function (context) {
-  add("500e95b1", content, true, context)
+  add("8ea6bf16", content, true, context)
 };
 
 /***/ }),

@@ -418,7 +418,10 @@ var defaultFilterMultiple = true;
             elementValueStr = renderedSlot[0].text;
           }
         }
-        return !!(elementValueStr && elementValueStr.indexOf(valueStr) > -1);
+        if (!elementValueStr) {
+          elementValueStr = '';
+        }
+        return elementValueStr.indexOf(valueStr) > -1;
       };
     },
     getMaxCurrent: function getMaxCurrent(total) {
@@ -904,7 +907,7 @@ var content = __webpack_require__(4);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("500e95b1", content, true);
+var update = __webpack_require__(6)("8ea6bf16", content, true);
 
 /***/ }),
 /* 4 */
