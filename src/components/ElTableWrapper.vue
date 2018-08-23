@@ -307,17 +307,17 @@
       },
       getDefaultSearchMethod(columnAttr) {
         const prop = columnAttr.prop
+        const scopedSlots = this.$scopedSlots
         return function(value, row) {
           const elementValue = prop && prop.indexOf('.') === -1
             ? row[prop] : getValueByPath(row, prop)
           let elementValueStr = elementValue.toString().toLowerCase()
-          if (elementValue instanceof Date) {
-            elementValueStr = elementValue.toJSON()
-          }
           const valueStr = value.toString().toLowerCase()
-          if (valueStr.indexOf('/') > -1) {
-            const valueStrAsDate = new Date(valueStr)
-            return valueStrAsDate.toJSON() === elementValue.toJSON()
+          if (scopedSlots[columnAttr.scopedSlot]) {
+            const renderedSlot = scopedSlots[columnAttr.scopedSlot]({row: row})
+            if (renderedSlot.length && renderedSlot[0]) {
+              elementValueStr = renderedSlot[0].text
+            }
           }
           return elementValueStr.indexOf(valueStr) > -1
         }
