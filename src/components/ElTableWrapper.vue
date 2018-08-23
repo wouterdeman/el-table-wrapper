@@ -305,24 +305,44 @@
         }
         return orderBy(data, sortColumn.prop, sortOrder, sortColumn.sortMethod)
       },
+      findTextInVnode(vNode) {
+        let result = ''
+        if (vNode.children && vNode.children.length) {
+          result = this.findTextInVnode(vNode.children[0])
+        }
+
+        if (result) {
+          return result
+        }
+
+        if (vNode.text) {
+          return vNode.text
+        }
+        return ''
+      },
       getDefaultSearchMethod(columnAttr) {
         const prop = columnAttr.prop
         const scopedSlots = this.$scopedSlots
+        const findTextInVnodeF = this.findTextInVnode
         return function(value, row) {
           const elementValue = prop && prop.indexOf('.') === -1
             ? row[prop] : getValueByPath(row, prop)
           let elementValueStr = elementValue ? elementValue.toString().toLowerCase() : ''
+          let renderedElementValueStr = ''
           const valueStr = value.toString().toLowerCase()
           if (scopedSlots[columnAttr.scopedSlot]) {
             const renderedSlot = scopedSlots[columnAttr.scopedSlot]({row: row})
             if (renderedSlot.length && renderedSlot[0]) {
-              elementValueStr = renderedSlot[0].text
+              renderedElementValueStr = findTextInVnodeF(renderedSlot[0])
             }
           }
           if (!elementValueStr) {
             elementValueStr = ''
           }
-          return elementValueStr.indexOf(valueStr) > -1
+          if (!renderedElementValueStr) {
+            renderedElementValueStr = ''
+          }
+          return renderedElementValueStr.indexOf(valueStr) > -1 || elementValueStr.indexOf(valueStr) > -1
         }
       },
       getMaxCurrent(total) {

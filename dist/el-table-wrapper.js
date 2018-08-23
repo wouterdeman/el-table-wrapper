@@ -405,23 +405,43 @@ var defaultFilterMultiple = true;
       }
       return Object(__WEBPACK_IMPORTED_MODULE_2__util__["b" /* orderBy */])(data, sortColumn.prop, sortOrder, sortColumn.sortMethod);
     },
+    findTextInVnode: function findTextInVnode(vNode) {
+      var result = '';
+      if (vNode.children && vNode.children.length) {
+        result = this.findTextInVnode(vNode.children[0]);
+      }
+
+      if (result) {
+        return result;
+      }
+
+      if (vNode.text) {
+        return vNode.text;
+      }
+      return '';
+    },
     getDefaultSearchMethod: function getDefaultSearchMethod(columnAttr) {
       var prop = columnAttr.prop;
       var scopedSlots = this.$scopedSlots;
+      var findTextInVnodeF = this.findTextInVnode;
       return function (value, row) {
         var elementValue = prop && prop.indexOf('.') === -1 ? row[prop] : Object(__WEBPACK_IMPORTED_MODULE_2__util__["a" /* getValueByPath */])(row, prop);
         var elementValueStr = elementValue ? elementValue.toString().toLowerCase() : '';
+        var renderedElementValueStr = '';
         var valueStr = value.toString().toLowerCase();
         if (scopedSlots[columnAttr.scopedSlot]) {
           var renderedSlot = scopedSlots[columnAttr.scopedSlot]({ row: row });
           if (renderedSlot.length && renderedSlot[0]) {
-            elementValueStr = renderedSlot[0].text;
+            renderedElementValueStr = findTextInVnodeF(renderedSlot[0]);
           }
         }
         if (!elementValueStr) {
           elementValueStr = '';
         }
-        return elementValueStr.indexOf(valueStr) > -1;
+        if (!renderedElementValueStr) {
+          renderedElementValueStr = '';
+        }
+        return renderedElementValueStr.indexOf(valueStr) > -1 || elementValueStr.indexOf(valueStr) > -1;
       };
     },
     getMaxCurrent: function getMaxCurrent(total) {
@@ -907,7 +927,7 @@ var content = __webpack_require__(4);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("8ea6bf16", content, true);
+var update = __webpack_require__(6)("f9a8f742", content, true);
 
 /***/ }),
 /* 4 */
