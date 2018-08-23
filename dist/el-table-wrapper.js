@@ -407,10 +407,17 @@ var defaultFilterMultiple = true;
     },
     getDefaultSearchMethod: function getDefaultSearchMethod(columnAttr) {
       var prop = columnAttr.prop;
+      var scopedSlots = this.$scopedSlots;
       return function (value, row) {
         var elementValue = prop && prop.indexOf('.') === -1 ? row[prop] : Object(__WEBPACK_IMPORTED_MODULE_2__util__["a" /* getValueByPath */])(row, prop);
         var elementValueStr = elementValue.toString().toLowerCase();
         var valueStr = value.toString().toLowerCase();
+        if (scopedSlots[columnAttr.scopedSlot]) {
+          var renderedSlot = scopedSlots[columnAttr.scopedSlot]({ row: row });
+          if (renderedSlot.length && renderedSlot[0]) {
+            elementValueStr = renderedSlot[0].text;
+          }
+        }
         return elementValueStr.indexOf(valueStr) > -1;
       };
     },
@@ -897,7 +904,7 @@ var content = __webpack_require__(4);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("48927098", content, true);
+var update = __webpack_require__(6)("017066ec", content, true);
 
 /***/ }),
 /* 4 */
