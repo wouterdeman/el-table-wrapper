@@ -310,8 +310,15 @@
         return function(value, row) {
           const elementValue = prop && prop.indexOf('.') === -1
             ? row[prop] : getValueByPath(row, prop)
-          const elementValueStr = elementValue.toString().toLowerCase()
+          let elementValueStr = elementValue.toString().toLowerCase()
+          if (elementValue instanceof Date) {
+            elementValueStr = elementValue.toJSON()
+          }
           const valueStr = value.toString().toLowerCase()
+          if (valueStr.indexOf('/') > -1) {
+            const valueStrAsDate = new Date(valueStr)
+            return valueStrAsDate.toJSON() === elementValue.toJSON()
+          }
           return elementValueStr.indexOf(valueStr) > -1
         }
       },

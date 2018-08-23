@@ -10,6 +10,9 @@
         <!-- <el-tag>{{scope.row.location.name}}</el-tag> -->
         {{scope.row.location.name}}
       </template>
+      <template slot-scope="scope" slot="startDate-slot">
+        {{scope.row.startDate.toLocaleDateString()}}
+      </template>
       <!-- <div slot="append">
         <span>别扯了，到底了</span>
       </div> -->
@@ -55,6 +58,15 @@
             sortable: true,
             searchable: true,
             searchOnInput: false
+          },
+          {
+            prop: 'startDate',
+            label: 'Start date',
+            width: 200,
+            sortable: true,
+            searchable: true,
+            searchOnInput: false,
+            scopedSlot: 'startDate-slot'
           },
           {
             prop: 'location.name',
@@ -116,7 +128,8 @@
               lat: '36.195722',
               lng: '117.127579'
             },
-            ip: '101.254.140.79'
+            ip: '101.254.140.79',
+            startDate: new Date(2018, 1, 1)
           },
           {
             latestTime: '2017-08-24 22:40:54',
@@ -125,7 +138,8 @@
               lat: '39.053856',
               lng: '117.038726'
             },
-            ip: '192.168.199.163'
+            ip: '192.168.199.163',
+            startDate: new Date(2018, 4, 1)
           },
           {
             latestTime: '2017-08-17 23:33:48',
@@ -134,7 +148,8 @@
               lat: '42.687737',
               lng: '125.530098'
             },
-            ip: '114.64.232.162'
+            ip: '114.64.232.162',
+            startDate: new Date(2018, 6, 1)
           }
         ])
       }
