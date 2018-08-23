@@ -139,10 +139,10 @@ var defaultFilterMultiple = true;
       default: false
     },
     columnDefault: Object,
-    pagination: [Object, {
-      type: Boolean,
+    pagination: {
+      type: [Boolean, Object],
       default: true
-    }],
+    },
     defaultSort: Object
   },
   computed: {
@@ -792,7 +792,7 @@ var defaultFilterMultiple = true;
     renderPagination: function renderPagination() {
       var h = this.$createElement;
 
-      if (!this.hasPagination) {
+      if (!this.hasPagination()) {
         return null;
       }
       var pagination = this.states.pagination;
@@ -927,7 +927,7 @@ var content = __webpack_require__(4);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("f9a8f742", content, true);
+var update = __webpack_require__(6)("df50df80", content, true);
 
 /***/ }),
 /* 4 */

@@ -43,10 +43,10 @@
         default: false
       },
       columnDefault: Object,
-      pagination: [Object, {
-        type: Boolean,
+      pagination: {
+        type: [Boolean, Object],
         default: true
-      }],
+      },
       defaultSort: Object
     },
     computed: {
@@ -620,7 +620,7 @@
         )
       },
       renderPagination() {
-        if (!this.hasPagination) {
+        if (!this.hasPagination()) {
           return null
         }
         const { pagination } = this.states

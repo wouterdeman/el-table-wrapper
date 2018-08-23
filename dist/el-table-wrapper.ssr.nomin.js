@@ -139,10 +139,10 @@ var defaultFilterMultiple = true;
       default: false
     },
     columnDefault: Object,
-    pagination: [Object, {
-      type: Boolean,
+    pagination: {
+      type: [Boolean, Object],
       default: true
-    }],
+    },
     defaultSort: Object
   },
   computed: {
@@ -792,7 +792,7 @@ var defaultFilterMultiple = true;
     renderPagination: function renderPagination() {
       var h = this.$createElement;
 
-      if (!this.hasPagination) {
+      if (!this.hasPagination()) {
         return null;
       }
       var pagination = this.states.pagination;
@@ -930,7 +930,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(6)
 module.exports.__inject__ = function (context) {
-  add("f9a8f742", content, true, context)
+  add("df50df80", content, true, context)
 };
 
 /***/ }),
