@@ -11,7 +11,7 @@
         {{scope.row.location.name}}
       </template>
       <template slot-scope="scope" slot="startDate-slot">
-        {{scope.row.startDate.toLocaleDateString()}}
+        {{scope.row.startDate ? scope.row.startDate.toLocaleDateString() : ''}}
       </template>
       <!-- <div slot="append">
         <span>别扯了，到底了</span>
@@ -139,7 +139,7 @@
               lng: '117.038726'
             },
             ip: '192.168.199.163',
-            startDate: new Date(2018, 4, 1)
+            startDate: null
           },
           {
             latestTime: '2017-08-17 23:33:48',
