@@ -410,7 +410,7 @@ var defaultFilterMultiple = true;
       var scopedSlots = this.$scopedSlots;
       return function (value, row) {
         var elementValue = prop && prop.indexOf('.') === -1 ? row[prop] : Object(__WEBPACK_IMPORTED_MODULE_2__util__["a" /* getValueByPath */])(row, prop);
-        var elementValueStr = elementValue.toString().toLowerCase();
+        var elementValueStr = elementValue ? elementValue.toString().toLowerCase() : '';
         var valueStr = value.toString().toLowerCase();
         if (scopedSlots[columnAttr.scopedSlot]) {
           var renderedSlot = scopedSlots[columnAttr.scopedSlot]({ row: row });
@@ -907,7 +907,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(6)
 module.exports.__inject__ = function (context) {
-  add("017066ec", content, true, context)
+  add("bf3a4dfe", content, true, context)
 };
 
 /***/ }),

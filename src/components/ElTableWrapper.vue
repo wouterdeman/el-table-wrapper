@@ -311,7 +311,7 @@
         return function(value, row) {
           const elementValue = prop && prop.indexOf('.') === -1
             ? row[prop] : getValueByPath(row, prop)
-          let elementValueStr = elementValue.toString().toLowerCase()
+          let elementValueStr = elementValue ? elementValue.toString().toLowerCase() : ''
           const valueStr = value.toString().toLowerCase()
           if (scopedSlots[columnAttr.scopedSlot]) {
             const renderedSlot = scopedSlots[columnAttr.scopedSlot]({row: row})
